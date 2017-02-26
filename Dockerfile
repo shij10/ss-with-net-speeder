@@ -2,6 +2,11 @@
 
 FROM ubuntu:14.04.3
 MAINTAINER lowid <lowid@outlook.com>
+
+RUN mkdir /myvol
+VOLUME /myvol
+
+
 RUN apt-get update && \
     apt-get install -y python-pip libnet1 libnet1-dev libpcap0.8 libpcap0.8-dev git
 
@@ -17,4 +22,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/net_speeder
 
 # Configure container to run as an executable
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh", "-c", "/myvol/shadowsocks.json"]
